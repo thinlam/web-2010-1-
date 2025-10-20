@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>💓 Lá thư 20/10 — Sakura Pro</title>
+<title>💓 Lá thư 20/10 — Ngày Phụ nữ Việt Nam</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -100,16 +100,12 @@ body{
   animation:heartbeat 1.25s ease-in-out infinite;
 }
 @keyframes heartbeat{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
-
-/* vòng sáng lan theo nhịp */
 .glow-ring{
   position:absolute; inset:0; border-radius:999px; pointer-events:none;
   background:radial-gradient(circle, rgba(251,113,133,.45), rgba(251,113,133,0) 60%);
   filter:blur(18px); opacity:.0; animation:pulse 1.25s ease-in-out infinite;
 }
 @keyframes pulse{ 0%,100%{opacity:.05; transform:scale(1)} 50%{opacity:.45; transform:scale(1.18)} }
-
-/* tia sáng chéo rất nhẹ */
 .beam{
   position:absolute; inset:-60% -40%; pointer-events:none; mix-blend-mode:screen; opacity:.16;
   background:
@@ -144,8 +140,9 @@ body{
 <!-- ENVELOPE -->
 <div class="envelope" id="env">
   <div class="letter">
-    <h1>Gửi Mẹ — người phụ nữ tuyệt vời nhất đời con</h1>
-    <p>Không cần đến hoa hay quà, chỉ cần có Mẹ — là tháng Mười đã đủ dịu dàng rồi.</p> 
+  <h1>Gửi con khùng — người làm tháng Mười dịu lại</h1>
+<p>Mỗi ngày trôi qua, bớt khùng, bớt bướng, bớt lì — cho người khác đỡ mệt, mà người khác còn cảm tình một chút.</p>
+
     <button class="open-btn" id="openBtn">💌 Mở lá thư</button>
   </div>
 </div>
@@ -166,21 +163,23 @@ body{
     </svg>
   </div>
 
-  <h2>Tấm thiệp 20/10 dành cho Mẹ</h2>
-  <p>Mẹ à,</p>
-  <p>Con biết mình không giỏi nói lời ngọt ngào, nhưng 20/10 này con chỉ muốn nói một điều đơn giản thôi:</p>
-  <p><b>Cảm ơn mẹ</b> — vì đã dành cả tuổi trẻ để lo cho gia đình, cho con được lớn lên trong đủ đầy và yêu thương.</p>
-  <p><b>Cảm ơn mẹ</b> – người phụ nữ mạnh mẽ nhất mà con từng biết, dù mệt vẫn luôn mỉm cười.</p>
-  <p>Con hứa sẽ sống tử tế, chăm chỉ và thành công — để mẹ có thể yên lòng, và tự hào rằng:</p>
-  <p style="font-style:italic;">“À, con trai mình đã thật sự lớn rồi.”</p>
-  <p style="font-weight:700;color:var(--rose-deep);margin-top:20px">Con yêu mẹ rất nhiều ❤️</p>
+  <h2>Lời chúc 20/10</h2>
+  <p style="white-space:pre-line; font-weight:600; color:#1f2937" id="wish">
+  20/10 vui vẻ nha .
+  Chúc công việc suôn sẻ, cuộc sống ổn định,
+  và sớm tìm được hạnh phúc riêng để bớt khùng, đừng bướng nữa nha , khổ thân người khác lắm nha . 
+  Dù gì cũng chúc may mắn trên con đường bạn chọn.
+  </p>
 
   <div class="flower" style="top:-18px; left:50%; animation-delay:0s"></div>
   <div class="flower" style="top:42%; left:-28px; animation-delay:2s"></div>
   <div class="flower" style="bottom:-18px; right:52%; animation-delay:4s"></div>
   <div class="flower" style="top:18%; right:-28px; animation-delay:6s"></div>
-</section>
 
+  <!-- Nút copy lời chúc (cho tiện) -->
+  <button class="open-btn" id="copyBtn" style="margin-top:20px">📋 Sao chép lời chúc</button>
+  <div id="toast" style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:rgba(16,185,129,.95);color:#fff;padding:10px 16px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transition:opacity .3s ease;pointer-events:none">Đã sao chép!</div>
+</section>
 
 <script>
 /* Helpers */
@@ -214,6 +213,16 @@ function openLetter(){
   env.classList.add('open');
   setTimeout(()=>{ card.classList.add('show'); window.scrollTo({top: env.offsetTop+220, behavior:'smooth'}); }, 950);
 }
+
+/* Copy wish */
+document.getElementById('copyBtn').addEventListener('click', async ()=>{
+  try{
+    const text=document.getElementById('wish').innerText.trim();
+    await navigator.clipboard.writeText(text);
+    const toast=document.getElementById('toast');
+    toast.style.opacity=1; setTimeout(()=>toast.style.opacity=0, 1200);
+  }catch{}
+});
 </script>
 </body>
 </html>
