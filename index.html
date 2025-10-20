@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>💓 Lá thư 20/10 — Sakura Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rose:#f43f5e; --rose-deep:#e11d48; --paper:#fffafc; --ink:#0f172a;
+  --shadow:0 10px 40px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 600px at 15% 0%, #ffe4ef 0%, transparent 70%),
+    radial-gradient(1000px 800px at 85% 0%, #ffe9f2 0%, transparent 70%),
+    linear-gradient(180deg,#fff0f6,#ffe4e6 60%, #fff 100%);
+  overflow-x:hidden; scroll-behavior:smooth;
+}
+
+/* --- Bokeh hồng rất nhẹ --- */
+.bokeh{
+  position:fixed; inset:-10% -10% auto -10%; height:60vh; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(80px 80px at 20% 20%, rgba(251,113,133,.20), transparent 60%),
+    radial-gradient(120px 120px at 70% 10%, rgba(236,72,153,.12), transparent 60%),
+    radial-gradient(90px 90px at 80% 55%, rgba(244,63,94,.14), transparent 60%),
+    radial-gradient(120px 120px at 30% 70%, rgba(255,192,203,.16), transparent 60%);
+  filter: blur(10px);
+}
+
+/* --- 3 lớp cánh hoa (parallax) --- */
+.petal{position:fixed; top:-40px; width:22px; height:16px;
+  background:radial-gradient(circle at 30% 30%,#fff,#ffc0cb 40%,#fda4af);
+  border-radius:60% 70% 60% 70%/100% 100% 60% 60%; opacity:.85; transform:rotate(15deg);
+  filter:drop-shadow(0 2px 4px rgba(244,63,94,.25)); pointer-events:none;
+}
+@keyframes fallFar  {to{transform:translate3d(var(--x,0),110vh,0) rotate(540deg)}}
+@keyframes fallMid  {to{transform:translate3d(var(--x,0),110vh,0) rotate(720deg)}}
+@keyframes fallNear {to{transform:translate3d(var(--x,0),110vh,0) rotate(900deg)}}
+.layer-far  .petal{z-index:1; animation:fallFar  22s linear infinite;}
+.layer-mid  .petal{z-index:2; animation:fallMid  18s linear infinite;}
+.layer-near .petal{z-index:3; animation:fallNear 14s linear infinite; filter:blur(.2px) drop-shadow(0 3px 6px rgba(244,63,94,.3));}
+
+/* --- Envelope satin 3D --- */
+.envelope{
+  position:relative; width:min(560px,92vw); height:380px; margin:120px auto 60px;
+  border-radius:22px; background:linear-gradient(180deg,#ffe5ee,#ffd9e5); box-shadow:var(--shadow);
+  overflow:hidden; perspective:1200px; z-index:4;
+}
+.envelope::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:62%;
+  background:linear-gradient(180deg,#f8b4d9,#fda4af);
+  clip-path:polygon(0 0,100% 0,50% 100%); transform-origin:top;
+  box-shadow:0 8px 22px rgba(0,0,0,.10);
+  transition:transform 900ms cubic-bezier(.2,.8,.2,1);
+}
+.envelope.open::before{ transform:rotateX(180deg); }
+.letter{
+  position:absolute; inset:0; margin:28px; border-radius:18px; background:var(--paper);
+  box-shadow:0 12px 28px rgba(0,0,0,.10);
+  display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+  transition:opacity .6s ease, transform .6s ease;
+}
+.letter h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(28px,4vw,40px); margin:0 0 8px;
+  background:linear-gradient(180deg,var(--rose-deep),var(--rose)); -webkit-background-clip:text; color:transparent;
+}
+.letter p{color:#475569; max-width:54ch; margin:0 0 18px}
+.open-btn{
+  font-size:17px; font-weight:700; padding:14px 30px; border:none; border-radius:14px; cursor:pointer;
+  background:linear-gradient(90deg,#f43f5e,#ec4899,#f59e0b); background-size:220% auto; color:#fff;
+  box-shadow:0 12px 26px rgba(244,63,94,.25); transition:transform .15s ease, background-position .8s ease;
+}
+.open-btn:hover{ transform:translateY(-2px); background-position:100% center; }
+.envelope.open .letter{ opacity:0; transform:translateY(-80px); }
+
+/* --- Card satin pro --- */
+.card{
+  display:none; max-width:920px; margin:40px auto 120px; padding:54px 42px; text-align:center;
+  background:rgba(255,255,255,.96); border-radius:30px; box-shadow:var(--shadow); position:relative; overflow:hidden; z-index:4;
+  animation:fadeIn 1.1s ease both;
+}
+.card.show{ display:block; }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(36px)} to{opacity:1; transform:none} }
+.card h2{ font-family:"Playfair Display",serif; font-size:clamp(30px,5vw,46px); color:var(--rose-deep); margin:0 0 10px}
+.card p{ font-size:18px; line-height:1.9; color:#334155; margin:10px 0 }
+.card b{ color:var(--rose-deep) }
+
+/* --- Trái tim Lý Tuân + glow ring + beam --- */
+.heart-wrap{ position:relative; width:220px; margin:0 auto 20px }
+.heart{
+  width:220px; height:auto; display:block; margin:0 auto;
+  filter:drop-shadow(0 0 22px rgba(255,120,150,.55));
+  animation:heartbeat 1.25s ease-in-out infinite;
+}
+@keyframes heartbeat{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+
+/* vòng sáng lan theo nhịp */
+.glow-ring{
+  position:absolute; inset:0; border-radius:999px; pointer-events:none;
+  background:radial-gradient(circle, rgba(251,113,133,.45), rgba(251,113,133,0) 60%);
+  filter:blur(18px); opacity:.0; animation:pulse 1.25s ease-in-out infinite;
+}
+@keyframes pulse{ 0%,100%{opacity:.05; transform:scale(1)} 50%{opacity:.45; transform:scale(1.18)} }
+
+/* tia sáng chéo rất nhẹ */
+.beam{
+  position:absolute; inset:-60% -40%; pointer-events:none; mix-blend-mode:screen; opacity:.16;
+  background:
+    conic-gradient(from 200deg at 60% 40%, rgba(255,255,255,.8), rgba(255,180,200,.0) 20%),
+    conic-gradient(from 30deg  at 40% 60%, rgba(255,200,220,.6), rgba(255,180,200,.0) 30%);
+  animation:beamFloat 6s ease-in-out infinite;
+}
+@keyframes beamFloat{ 0%,100%{transform:translateY(-6px)} 50%{transform:translateY(6px)} }
+
+/* hoa xoay quanh card */
+.flower{
+  position:absolute; width:36px; height:36px; background:radial-gradient(circle,#fff,#f9a8d4);
+  border-radius:50%; opacity:.75; animation:orbit 14s linear infinite;
+}
+@keyframes orbit{ 0%{transform:rotate(0deg) translate(170px) rotate(0deg)} 100%{transform:rotate(360deg) translate(170px) rotate(-360deg)} }
+
+/* A11y: giảm chuyển động */
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important; transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="bokeh"></div>
+
+<!-- 3 layers for petals -->
+<div class="layer-far"></div>
+<div class="layer-mid"></div>
+<div class="layer-near"></div>
+
+<!-- ENVELOPE -->
+<div class="envelope" id="env">
+  <div class="letter">
+    <h1>Gửi Mẹ — người phụ nữ tuyệt vời nhất đời con</h1>
+    <p>Không cần đến hoa hay quà, chỉ cần có Mẹ — là tháng Mười đã đủ dịu dàng rồi.</p> 
+    <button class="open-btn" id="openBtn">💌 Mở lá thư</button>
+  </div>
+</div>
+
+<!-- CARD -->
+<section class="card" id="card">
+  <div class="heart-wrap">
+    <div class="glow-ring"></div>
+    <div class="beam"></div>
+    <svg class="heart" viewBox="0 0 1024 900" xmlns="http://www.w3.org/2000/svg" aria-label="Trái tim">
+      <defs>
+        <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fb7185"/>
+          <stop offset="100%" stop-color="#e11d48"/>
+        </linearGradient>
+      </defs>
+      <path d="M512 850s-400-240-400-530c0-130 100-220 220-220 90 0 150 60 180 110 30-50 90-110 180-110 120 0 220 90 220 220 0 290-400 530-400 530z" fill="url(#heartGradient)"/>
+    </svg>
+  </div>
+
+  <h2>Tấm thiệp 20/10 dành cho Mẹ</h2>
+  <p>Mẹ à,</p>
+  <p>Con biết mình không giỏi nói lời ngọt ngào, nhưng 20/10 này con chỉ muốn nói một điều đơn giản thôi:</p>
+  <p><b>Cảm ơn mẹ</b> — vì đã dành cả tuổi trẻ để lo cho gia đình, cho con được lớn lên trong đủ đầy và yêu thương.</p>
+  <p><b>Cảm ơn mẹ</b> – người phụ nữ mạnh mẽ nhất mà con từng biết, dù mệt vẫn luôn mỉm cười.</p>
+  <p>Con hứa sẽ sống tử tế, chăm chỉ và thành công — để mẹ có thể yên lòng, và tự hào rằng:</p>
+  <p style="font-style:italic;">“À, con trai mình đã thật sự lớn rồi.”</p>
+  <p style="font-weight:700;color:var(--rose-deep);margin-top:20px">Con yêu mẹ rất nhiều ❤️</p>
+
+  <div class="flower" style="top:-18px; left:50%; animation-delay:0s"></div>
+  <div class="flower" style="top:42%; left:-28px; animation-delay:2s"></div>
+  <div class="flower" style="bottom:-18px; right:52%; animation-delay:4s"></div>
+  <div class="flower" style="top:18%; right:-28px; animation-delay:6s"></div>
+</section>
+
+
+<script>
+/* Helpers */
+const rand=(a,b)=>Math.random()*(b-a)+a;
+
+/* Petals: 3 layers for depth */
+function spawnPetals(layerSel, count, speedMin, speedMax){
+  const layer=document.querySelector(layerSel);
+  for(let i=0;i<count;i++){
+    const p=document.createElement('div');
+    p.className='petal';
+    p.style.left=rand(0,100)+'vw';
+    p.style.setProperty('--x', rand(-60,60)+'vw');
+    p.style.animationDuration=rand(speedMin,speedMax)+'s';
+    p.style.animationDelay=rand(-12,0)+'s';
+    layer.appendChild(p);
+  }
+}
+spawnPetals('.layer-far',  20, 18, 26);
+spawnPetals('.layer-mid',  20, 14, 22);
+spawnPetals('.layer-near', 18, 10, 18);
+
+/* Open envelope -> show card */
+const env=document.getElementById('env');
+const card=document.getElementById('card');
+document.getElementById('openBtn').addEventListener('click', (e)=>{ e.stopPropagation(); openLetter();});
+env.addEventListener('click', openLetter);
+
+function openLetter(){
+  if(env.classList.contains('open')) return;
+  env.classList.add('open');
+  setTimeout(()=>{ card.classList.add('show'); window.scrollTo({top: env.offsetTop+220, behavior:'smooth'}); }, 950);
+}
+</script>
+</body>
+</html>
